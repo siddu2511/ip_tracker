@@ -1,0 +1,104 @@
+.card-group{
+	margin-left: 10%;
+  	margin-right: 10%;
+  	position: fixed;
+  	top: 30px;
+  	z-index: 2;
+}
+#map{
+	position: fixed;
+	top: 220px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+body{
+	background-image: url('../styles/images/pattern-bg.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Rubik';
+	padding: 10px;
+	margin: 10px;
+}
+h2{
+	color: #FFF;
+	text-align: center;
+}
+input{
+	display: inline;
+	width: 60%;
+	height: 50px;
+	margin-right: 0px;
+	border-radius: 5px;
+}
+form{
+  	margin-left: 30%;
+  	margin-right: 30%;
+}
+#carda{
+	border-radius: 10px 0px 0px 10px;
+}
+#cardb{
+	border-radius: 0px 10px 10px 0px;
+}
+.attribution{
+	position: fixed;
+	top: 5px;
+	left: 5px;
+	color: #FFF;
+	font-size: 11px; 
+	text-align: center;
+}
+a{
+	color: hsl(53.4, 100%, 50%);
+}
+@media only screen and (max-width: 650px){
+	.card{
+		border-radius: 0px;
+		margin-bottom: 0px;
+		padding: 0px;
+	}
+	#carda{
+		border-radius: 10px 10px 0px 00px;
+	}
+	#cardb{
+		border-radius: 0px 0px 10px 10px;
+	}
+	.card-body{
+		padding: 5px;
+		text-align: center;
+	}
+	.card-group{
+		padding: 0px;
+		margin: 0px;
+		display: flex;
+  		flex-wrap: wrap;
+		flex-direction: column;
+	}
+	form{
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0; 
+	}
+	body{
+		font-size: 5%;
+	}
+	.card-text{
+		font-size: 1600%;
+	}
+	#map{
+		position: fixed;
+		top: 41%;
+	}
+	.attribution{
+		position: fixed;
+		top:92.75%;
+		left:57%;
+		color: #000;
+		background-color: rgba(256,256,256,1);
+		padding-bottom: 0px;
+	}
+	a{
+		color: blue;
+	}
+}

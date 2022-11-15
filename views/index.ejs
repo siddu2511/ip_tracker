@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <title>Frontend Mentor | IP Address Tracker</title>
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h2>IP Address Tracker</h2>
+        <form method="post">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-md" aria-label="Text input with segmented dropdown button" name="ip_address"  placeholder="Search for IP address or domain" style="border-radius: 10px 0px 0px 10px" required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary btn-dark btn-md" style="background-color: #000;color: #FFF; border-radius: 0px 10px 10px 0px; border:1px solid black;"><img src="/styles/images/icon-arrow.png" alt="GO"></button>
+                </div>
+            </div>
+        </form>
+        <%if(typeof error!='undefined'){%>
+            <div class="alert alert-danger" role="alert" style="margin: 20px;text-align: center;">
+                <%=error%>
+            </div>
+        <%}else{%>
+            <%str = str.replace(/:/g,"");%>
+            <%str = str.replace(/{/g,"");%>
+            <%str = str.replace(/}/g,"");%>
+            <%str = str.split(",");%>
+            <%console.log(str);%>
+            <%var lat = str[4].slice(5,str[4].length);%>
+            <%var lng = str[5].slice(5,str[5].length);%>
+            <p style="display: none;" id="lat"><%=lat%></p>
+            <p style="display: none;" id="lng"><%=lng%></p>
+            <%var ip_address = str[0].slice(5,str[0].length-1);%>
+            <%var location = str[3].slice(7,str[3].length-1)+', '+str[2].slice(9,str[2].length-1)+', '+str[1].slice(20,str[1].length-1)+'\n'+str[6].slice(13,str[6].length-1);%>
+            <%var timezone = 'UTC'+str[7].slice(11,str[7].length-1);%>
+            <%var isp = str[str.length-4].slice(6,str[str.length-4].length-1);%>
+            <div id="map"></div>
+            <script>
+                var lat = Number(document.getElementById('lat').innerHTML);
+                var lng = Number(document.getElementById('lng').innerHTML);
+                var map = L.map('map').setView([lat, lng], 13);
+                L.tileLayer('https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=3JJ38eCDBtIsfCdqCwSI', {
+                    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+                }).addTo(map);
+                var blackIcon = L.icon({
+                    iconUrl:'/styles/images/icon-location.png'
+                });
+                L.marker([lat, lng],{icon: blackIcon}).addTo(map);
+            </script>
+            <div class="card-group" style="position: relative;" style="width: 60%;">
+                <div class="card col-sm-12" id="carda" style="margin: 0;">
+                    <div class="card-body" style=" padding: 0px;">
+                        <p class="card-text" style="font-weight: bold;"><small class="text-muted">IP ADDRESS</small></p>
+                        <h5 class="card-title" style="font-weight: bold;"><%= ip_address%></h5>
+                    </div>
+                </div>
+                <div class="card col-sm-12" id="cardc" style="margin: 0;">
+                    <div class="card-body" style=" padding: 0px;">
+                        <p class="card-text" style="font-weight: bold;"><small class="text-muted">LOCATION</small></p>
+                        <h5 class="card-title" style="font-weight: bold;"><%= location%></h5>
+                    </div>
+                </div>
+                <div class="card col-sm-12" id="cardd" style="margin: 0;">
+                    <div class="card-body" style=" padding: 0px;">
+                        <p class="card-text" style="font-weight: bold;"><small class="text-muted">TIMEZONE</small></p>
+                        <h5 class="card-title" style="font-weight: bold;"><%= timezone%></h5>
+                    </div>
+                </div>
+                <div class="card col-sm-12" id="cardb" style="margin: 0;">
+                    <div class="card-body" style=" padding: 0px;">
+                        <p class="card-text" style="font-weight: bold;"><small class="text-muted">ISP</small></p>
+                        <h5 class="card-title" style="font-weight: bold;"><%= isp%></h5>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</body>
+</html>
